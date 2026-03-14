@@ -5,6 +5,7 @@ import nodemailer from "nodemailer";
 
 dotenv.config();
 const app = express();
+const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(express.json());
@@ -22,7 +23,6 @@ app.get("/", (req, res) => {
 // POST route to send email
 app.post("/send-email", async (req, res) => {
   const { name, email, phone, message } = req.body;
-  
 
   try {
     const transporter = nodemailer.createTransport({
@@ -55,6 +55,6 @@ app.post("/send-email", async (req, res) => {
 });
 
 // Start server
-app.listen(3000, () => {
-  console.log("Server running on http://localhost:3000");
+app.listen(PORT, () => {
+  console.log(`Server running on ${PORT}`);
 });
