@@ -1,0 +1,332 @@
+/* ==============================
+   RESET & GLOBAL
+============================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: #f4f6f8;
+    color: #222;
+    line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #0d2c54;
+}
+
+/* ==============================
+   NAVIGATION
+============================== */
+nav {
+    background: #0d2c54;
+    padding: 15px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+nav h2 {
+    color: white;
+    font-size: 22px;
+}
+
+nav ul {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    flex-wrap: wrap;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 12px;
+}
+
+nav a:hover {
+    color: #f9c74f;
+}
+
+/* ==============================
+   SECTION
+============================== */
+.section {
+    min-height: 100vh;
+    padding: 60px 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.hero {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+
+
+/* ==============================
+   HEADINGS
+============================== */
+h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+/* ==============================
+   CARDS & FORMS
+============================== */
+.card,
+form {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+form input,
+form textarea,
+form select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    background: #0d2c54;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #163f77;
+}
+
+/* ==============================
+   FOOTER
+============================== */
+footer {
+    background: #0d2c54;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+footer p a{
+    color: #facc15;
+    text-decoration:none;
+    cursor:pointer;
+}
+
+/* ==============================
+   ACCORDION
+============================== */
+.accordion {
+    margin-top: 30px;
+}
+
+.accordion-item {
+    margin-bottom: 15px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.accordion-header {
+    width: 100%;
+    text-align: left;
+    padding: 18px 15px;
+    font-size: 16px;
+    font-weight: 600;
+    background: #0d2c54;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.accordion-header:hover {
+    background: #163f77;
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 15px;
+    transition: max-height 0.4s ease, padding 0.3s ease;
+}
+
+.accordion-content p,
+.accordion-content ul {
+    margin: 12px 0;
+}
+
+.accordion-content ul {
+    padding-left: 20px;
+}
+
+/* ==============================
+   TESTIMONIALS
+============================== */
+.testimonials-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.testimonial-card {
+    flex: 1 1 250px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.testimonial-card h4 {
+    margin-top: 15px;
+    font-weight: 600;
+    color: #0d2c54;
+}
+
+/* ==============================
+   RESPONSIVE FIXES
+============================== */
+@media screen and (max-width: 1024px) {
+
+    /* Hero: reduce gap slightly */
+    .hero {
+        gap: 30px;
+        flex-wrap: wrap;
+    }
+
+    /* Hero image scales but keeps proportion */
+    .hero-image img {
+        width: 100%;
+        max-width: 350px;
+        /* slightly smaller than desktop */
+        height: auto;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+
+    /* Navbar stacking */
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px 10px;
+    }
+
+    nav ul {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    /* Section padding smaller */
+    .section {
+        padding: 40px 5%;
+    }
+
+    /* Hero stacks vertically */
+    .hero {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    /* Profile image smaller but still visible */
+    .hero-image img {
+        max-width: 250px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    /* Accordion adjustments */
+    .accordion-header {
+        font-size: 15px;
+        padding: 15px 12px;
+    }
+
+    .accordion-content {
+        padding: 0 12px;
+    }
+
+    /* Testimonials stack */
+    .testimonials-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+
+    /* Headings smaller */
+    h1 {
+        font-size: 24px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    /* Profile image smaller */
+    .hero-image img {
+        max-width: 180px;
+    }
+
+    /* Section padding smaller */
+    .section {
+        padding: 30px 5%;
+    }
+
+    /* Accordion content padding for small screens */
+    .accordion-header {
+        font-size: 14px;
+        padding: 12px 10px;
+    }
+
+    .accordion-content {
+        padding: 0 10px;
+    }
+}
