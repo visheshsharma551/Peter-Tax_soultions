@@ -32,6 +32,11 @@ app.post("/send-email", async (req, res) => {
         pass: process.env.EMAIL_PASS,
       },
     });
+    // Verify SMTP connection
+    transporter.verify((err, success) => {
+      if (err) console.error("SMTP verify failed:", err);
+      else console.log("SMTP verified:", success);
+    });
 
     const mailOptions = {
       from: email,
