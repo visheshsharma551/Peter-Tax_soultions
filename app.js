@@ -23,56 +23,52 @@ app.get("/", (req, res) => {
 // POST route to send email
 
 app.post("/send-email", async (req, res) => {
+  console.log("POST /send-email called");
+
   const { name, email, phone, message } = req.body;
 
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-  });
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
 
-  // Log the request in server logs
-  console.log("POST /send-email called:", req.body);
-
-  // Verify SMTP connection (optional, but good for debugging)
-  transporter.verify((err, success) => {
-    if (err) console.error("SMTP verify failed:", err);
-    else console.log("SMTP verified:", success);
-  });
-
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to: process.env.EMAIL_USER,
-    replyTo: email,
-    subject: "New Contact Form Message",
-    text: `Name: ${name}
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      replyTo: email,
+      to: process.env.EMAIL_USER,
+      subject: "New Contact Form Message",
+      text: `
+Name: ${name}
 Email: ${email}
 Phone: ${phone}
-Message: ${message}`,
-  };
+Message: ${message}
+`,
+    };
 
-  try {
-    const info = await transporter.sendMail(mailOptions);
-    console.log("Email info:", info);
+    await transporter.sendMail(mailOptions);
 
-    // Always return JSON
-    return res.status(200).json({
+    return res.json({
       success: true,
       message: "Email sent successfully",
-      info, // optional, only for debugging
     });
   } catch (error) {
     console.error("SendMail error:", error);
 
-    // **Important:** always send JSON even on failure
     return res.status(500).json({
       success: false,
-      message: "Email failed to send",
       error: error.message,
     });
   }
+});
+app.get("/debug", (req, res) => {
+  res.json({
+    emailConfigured: !!process.env.EMAIL_USER,
+    passConfigured: !!process.env.EMAIL_PASS,
+  });
 });
 
 // Start server
