@@ -15,7 +15,7 @@ app.set("view engine", "ejs");
 
 // --- SERVE STATIC FILES ---
 // This must come BEFORE any routes
-app.use(express.static(path.join(process.cwd(), "public")));
+app.use(express.static(path.join(process.cwd(), "Public")));
 
 // --- ROUTES ---
 app.get("/", (req, res) => res.render("index"));
