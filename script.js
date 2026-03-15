@@ -21,7 +21,17 @@ document.addEventListener("DOMContentLoaded", () => {
           body: JSON.stringify(formData),
         });
 
-        const result = await response.json();
+        const text = await response.text();
+
+        let result;
+
+        try {
+          result = JSON.parse(text);
+        } catch (err) {
+          console.error("Server response not valid JSON:", text);
+          alert("Server error. Check console.");
+          return;
+        }
 
         if (result.success) {
           alert("Message sent successfully!");
