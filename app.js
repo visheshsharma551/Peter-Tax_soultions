@@ -12,12 +12,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Serve static files
-const absolutePath = path.resolve();
+const absolutePath = path.resolve("public");
 app.use(express.static(absolutePath));
 
 // Home route
 app.get("/", (req, res) => {
-  res.sendFile(path.join(absolutePath, "index.html"));
+  res.sendFile(path.resolve("public/index.html"));
 });
 
 // POST route to send email
