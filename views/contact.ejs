@@ -4,7 +4,7 @@
 <head>
     <title>Contact | Peter’s Tax & Bookkeeping Solution</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
     
 </head>
 
@@ -13,15 +13,15 @@
     <nav>
         <h2>Peter’s Tax & Bookkeeping Solution</h2>
         <ul>
-            <li><a href="./index.html">Home</a></li>
-            <li><a href="./services.html">Services</a></li>
-            <li><a href="./about.html">About</a></li>
-            <li><a href="./contact.html">Contact</a></li>
-            <li><a href="./testimonials.html">Testimonials</a></li>
+            <li><a href="/index">Home</a></li>
+            <li><a href="/services">Services</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/testimonials">Testimonials</a></li>
         </ul>
     </nav>
 
-    <section class="section">
+    <section class="section" id="Contact">
         <h1>Contact Us</h1>
 
         <div class="card">
@@ -57,7 +57,7 @@
 
         <h2 style="margin-top:40px;">Send Us a Message</h2>
 
-        <form id="contact-form" method="post">
+        <form id="contact-form" action="/send-email" method="post">
             <input type="text" name="name" placeholder="Full Name" required />
             <input type="email" name="email" placeholder="Email Address" required />
             <input type="tel" name="phone" placeholder="Phone Number" required />
