@@ -20,15 +20,8 @@ document
       let result = {};
       try {
         result = await response.json();
-      } catch (err) {
-        console.error(
-          "Failed to parse JSON:",
-          err,
-          "Response status:",
-          response.status,
-          "Text:",
-          await response.text(),
-        );
+      } catch {
+        console.error("Server response not valid JSON.");
       }
 
       if (result.success) {
