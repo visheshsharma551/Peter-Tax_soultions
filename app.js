@@ -43,10 +43,14 @@ app.post("/send-email", async (req, res) => {
   });
 
   const mailOptions = {
-    from: email,
+    from: process.env.EMAIL_USER,
     to: process.env.EMAIL_USER,
+    replyTo: email,
     subject: "New Contact Form Message",
-    text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nMessage: ${message}`,
+    text: `Name: ${name}
+Email: ${email}
+Phone: ${phone}
+Message: ${message}`,
   };
 
   try {

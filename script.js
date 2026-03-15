@@ -1,37 +1,38 @@
-document
-  .getElementById("contact-form")
-  .addEventListener("submit", async function (e) {
-    e.preventDefault();
+document.addEventListener("DOMContentLoaded", () => {
+  const contactForm = document.getElementById("contact-form");
 
-    const formData = {
-      name: this.name.value,
-      email: this.email.value,
-      phone: this.phone.value,
-      message: this.message.value,
-    };
+  if (contactForm) {
+    contactForm.addEventListener("submit", async function (e) {
+      e.preventDefault();
 
-    try {
-      const response = await fetch("/send-email", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const formData = {
+        name: this.name.value,
+        email: this.email.value,
+        phone: this.phone.value,
+        message: this.message.value,
+      };
 
-      let result = {};
       try {
-        result = await response.json();
-      } catch {
-        console.error("Server response not valid JSON.");
-      }
+        const response = await fetch("/send-email", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
 
-      if (result.success) {
-        alert("Message sent successfully!");
-        this.reset();
-      } else {
-        alert("Error sending message.");
+        const result = await response.json();
+
+        if (result.success) {
+          alert("Message sent successfully!");
+          contactForm.reset();
+        } else {
+          alert("Error sending message.");
+        }
+      } catch (err) {
+        console.error("Fetch error:", err);
+        alert("Failed to send message.");
       }
-    } catch (err) {
-      console.error("Fetch error:", err);
-      alert("Failed to send message. Check server logs.");
-    }
-  });
+    });
+  }
+});
