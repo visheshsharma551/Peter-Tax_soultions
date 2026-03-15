@@ -60,12 +60,21 @@ app.post("/send-email", (req, res) => {
   };
   Transporter.sendMail(mailOption, (error, info) => {
     if (error) {
-      req.send("email operation failed, try after some time");
-    } else {
-      req.send("email sent");
+      console.error(error);
+
+      return res.status(500).json({
+        success: false,
+        message: "Email failed to send",
+      });
     }
+
+    console.log("Email sent:", info.response);
+
+    return res.json({
+      success: true,
+      message: "Email sent successfully",
+    });
   });
-  res.send("email sent");
 });
 
 // Start server
