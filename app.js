@@ -21,41 +21,53 @@ app.get("/", (req, res) => {
 });
 
 // POST route to send email
+
 app.post("/send-email", async (req, res) => {
   const { name, email, phone, message } = req.body;
 
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
+    },
+  });
+
+  // Log the request in server logs
+  console.log("POST /send-email called:", req.body);
+
+  // Verify SMTP connection (optional, but good for debugging)
+  transporter.verify((err, success) => {
+    if (err) console.error("SMTP verify failed:", err);
+    else console.log("SMTP verified:", success);
+  });
+
+  const mailOptions = {
+    from: email,
+    to: process.env.EMAIL_USER,
+    subject: "New Contact Form Message",
+    text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nMessage: ${message}`,
+  };
+
   try {
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Email info:", info);
+
+    // Always return JSON
+    return res.status(200).json({
+      success: true,
+      message: "Email sent successfully",
+      info, // optional, only for debugging
     });
-    // Verify SMTP connection
-    transporter.verify((err, success) => {
-      if (err) console.error("SMTP verify failed:", err);
-      else console.log("SMTP verified:", success);
-    });
-
-    const mailOptions = {
-      from: email,
-      to: process.env.EMAIL_USER,
-      subject: "New Contact Form Message",
-      text: `
-        Name: ${name}
-        Email: ${email}
-        Phone: ${phone}
-        Message: ${message}
-      `,
-    };
-
-    await transporter.sendMail(mailOptions);
-
-    res.status(200).json({ success: true, message: "Email sent successfully" });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ success: false, message: "Email failed to send" });
+    console.error("SendMail error:", error);
+
+    // **Important:** always send JSON even on failure
+    return res.status(500).json({
+      success: false,
+      message: "Email failed to send",
+      error: error.message,
+    });
   }
 });
 
